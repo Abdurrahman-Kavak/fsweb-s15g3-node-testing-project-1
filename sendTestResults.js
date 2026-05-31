@@ -27,7 +27,7 @@ User id'nizi nextgen'de projeye tıkladığınızda görebilirsiniz.
 
 
 `);
-    return
+    return;
   }
 
   try {
@@ -39,7 +39,7 @@ User id'nizi nextgen'de projeye tıkladığınızda görebilirsiniz.
           "Content-Type": "application/json",
         },
         body: JSON.stringify(results),
-      }
+      },
     );
 
     if (!response.ok) {
@@ -58,7 +58,7 @@ Slack #teknik-yardım kanalından destek isteyebilirsin.
       console.log(`
 
 
-Bu projedeki güncel score'unuz: %${Math.ceil(score*100)}
+Bu projedeki güncel score'unuz: %${Math.ceil(score * 100)}
 
 Başarıyla kaydedildi.
 Nextgen'i refresh yaparak kontrol edebilirsiniz.
