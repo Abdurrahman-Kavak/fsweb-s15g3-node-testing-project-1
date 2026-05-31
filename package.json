@@ -12,9 +12,8 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.15.0",
     "jest": "^28.1.0",
-    "nodemon": "^2.0.16",
-    "jest-ctrf-json-reporter": "^0.0.9"
-
+    "jest-ctrf-json-reporter": "^0.0.9",
+    "nodemon": "^3.1.14"
   },
   "repository": {
     "type": "git",
