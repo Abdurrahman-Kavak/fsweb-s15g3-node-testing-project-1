@@ -8,6 +8,11 @@
  */
 function nesneyiTrimle(obj) {
   // ✨ kodlar buraya
+  const yeniObj = {};
+  for (let prop in obj) {
+    yeniObj[prop] = obj[prop].trim();
+  }
+  return yeniObj;
 }
 
 /**
@@ -20,6 +25,8 @@ function nesneyiTrimle(obj) {
  */
 function verileniTrimle(obj, prop) {
   // ✨ kodlar buraya
+  obj[prop] = obj[prop].trim();
+  return obj;
 }
 
 /**
@@ -32,6 +39,13 @@ function verileniTrimle(obj, prop) {
  */
 function enBuyukTamsayiyiBul(tamsayilar) {
   // ✨ kodlar buraya
+  let max = tamsayilar[0].tamsayi;
+  for (let i = 1; i < tamsayilar.length; i++) {
+    if (tamsayilar[i].tamsayi > max) {
+      max = tamsayilar[i].tamsayi;
+    }
+  }
+  return max;
 }
 
 function Sayici(ilkSayi) {
@@ -39,9 +53,9 @@ function Sayici(ilkSayi) {
    * [Görev 4A] Sayici bir sayaç oluşturur
    * @param {number} ilkSayi - Sayacin ilk değeri
    */
-  
+
   // ✨ gerekli propları ekleyin
-  
+  this.sayi = ilkSayi;
 
   /**
    * [Görev 4B] asagiSay metodu sıfıra doğru sayar
@@ -57,7 +71,8 @@ function Sayici(ilkSayi) {
    */
   this.asagiSay = () => {
     // ✨ kodlar buraya
-  }
+    return this.sayi > 0 ? this.sayi-- : 0;
+  };
 }
 
 function Mevsimler() {
@@ -66,6 +81,8 @@ function Mevsimler() {
    */
 
   // ✨ gerekli propları ekleyin
+  this.mevsimler = ["yaz", "sonbahar", "kış", "ilkbahar"];
+  this.indeks = 0;
 
   /**
    * [Görev 5B] sonraki metodu bir sonraki mevsimi gösterir
@@ -81,23 +98,26 @@ function Mevsimler() {
    */
   this.sonraki = () => {
     // ✨ kodlar buraya
-  }
+    const siradakiMevsim = this.mevsimler[this.indeks];
+    this.indeks = (this.indeks + 1) % this.mevsimler.length;
+    return siradakiMevsim;
+  };
 }
 
-function Araba(/*kodlar buraya */) {
+function Araba(/*kodlar buraya */ isim, depo, kml) {
   /**
    * [Görev 6A] Araba 3 argüman alarak bir araba nesnesi oluşturur
    * @param {string} isim - arabanın ismi
    * @param {number} depo - benzin deposu kapasitesi
    * @param {number} kml - arabanın litre başına kat edebileceği km yol
    */
- 
-    this.odometer = 0 // araba 0 kilometrede yüklenecek
-    this.depo = depoBenzin // araba full depoyla yüklenecek
-    // ✨ gerekli propları ekleyin
 
-  
-
+  this.odometer = 0; // araba 0 kilometrede yüklenecek
+  this.depo = depo; // araba full depoyla yüklenecek
+  // ✨ gerekli propları ekleyin
+  this.kml = kml;
+  this.isim = isim;
+  this.kapasite = depo;
   /**
    * [Görev 6B] sur metodu odometera km ekler ve aynı oranda depodan benzin tüketir
    * @param {string} gidilecekyol - arabayı sürmek istediğimiz km yol
@@ -113,7 +133,16 @@ function Araba(/*kodlar buraya */) {
    */
   this.sur = (gidilecekyol) => {
     // ✨ kodlar buraya
-  }
+    const gidilebilecekMaksimumYol = this.depo * this.kml;
+    if (gidilecekyol <= gidilebilecekMaksimumYol) {
+      this.odometer += gidilecekyol;
+      this.depo -= gidilecekyol / this.kml;
+    } else {
+      this.odometer += gidilebilecekMaksimumYol;
+      this.depo = 0;
+    }
+    return this.odometer;
+  };
 
   /**
    * [Görev 6C] Depoya benzin ekleme
@@ -128,7 +157,11 @@ function Araba(/*kodlar buraya */) {
    */
   this.benzinal = (litre) => {
     // ✨ kodlar buraya
-  }
+    const bosKisim = this.kapasite - this.depo;
+    const eklenecekMiktar = litre > bosKisim ? bosKisim : litre;
+    this.depo += eklenecekMiktar;
+    return this.depo * this.kml;
+  };
 }
 
 /**
@@ -146,6 +179,10 @@ function Araba(/*kodlar buraya */) {
  */
 function asenkronCiftSayi(sayi) {
   // ✨ implement
+  if (sayi % 2 == 0) {
+    return Promise.resolve(true);
+  }
+  return Promise.resolve(false);
 }
 
 module.exports = {
@@ -156,4 +193,4 @@ module.exports = {
   Sayici,
   Mevsimler,
   Araba,
-}
+};
